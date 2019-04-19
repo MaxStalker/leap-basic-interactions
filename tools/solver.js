@@ -18,10 +18,14 @@ async function main() {
   }
   console.log(roundLock);
   abi = new ethers.utils.Interface(roundLock.abi);
+  const sender = '0xD8536F0dF61CD496B78e336b7Fe5e8bDFF45CD2f';
+
+  // both of those from server
   const codeBuf = roundLock.deployedBytecode;
-  const sender = '0x7A8D7dFd4d3DAD5FDf41d145AbD26D8cA05b3798';
-  const txHash = '0xab22ff67d3480fca1754a9a6b9a58e6d6ee5739fcfe6e954bae7a7ae358ea4c7';
-  const msgData = abi.functions.fullfill.encode([hand]);
+  const txHash = '0x0508e7237bd38e9e04d7c80bc9477a1547ed9c4b8d08ac7d5491cf71dfa37bf3';
+
+  // array is specific to ethers implementation
+  const msgData = abi.functions.roundResult.encode([hand]);
 
   // replace following txHash on next round
   // need to be string!
@@ -33,12 +37,12 @@ async function main() {
   const input = new Input(
     {
       prevout: new Outpoint(txHash, txIndex),
-      gasPrice: 0,
       script: codeBuf,
     }
   );
   input.setMsgData(msgData);
 
+  // TODO: for Johann
   const output = new Output(txValue, sender, 0);
   const condTx = Tx.spendCond(
     [input],
