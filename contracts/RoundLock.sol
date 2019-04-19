@@ -39,9 +39,10 @@ contract RoundLock {
 
     // this can be any name
     function roundResult(string memory userHand) public {
-        require(msg.sender == RECEIVER, "not a receiver");
+        // require(msg.sender == RECEIVER, "not a receiver");
         // we can skip encoding here
-        require(validHand(abi.encodePacked(userHand)));
+        bytes memory _hand = bytes(userHand);
+        require(validHand(_hand), 'not a valid hand');
         // calculation
         IERC20 token = IERC20(TOKEN_ADDR);
 

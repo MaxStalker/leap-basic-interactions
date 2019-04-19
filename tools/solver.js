@@ -18,11 +18,11 @@ async function main() {
   }
   console.log(roundLock);
   abi = new ethers.utils.Interface(roundLock.abi);
-  const sender = '0xD8536F0dF61CD496B78e336b7Fe5e8bDFF45CD2f';
+  const msgSender = '0xD8536F0dF61CD496B78e336b7Fe5e8bDFF45CD2f';
 
   // both of those from server
   const codeBuf = roundLock.deployedBytecode;
-  const txHash = '0x0508e7237bd38e9e04d7c80bc9477a1547ed9c4b8d08ac7d5491cf71dfa37bf3';
+  const txHash = '0x012ea5dd1d2ebe99a7834aa5daf5feedad5d6be8aeaf565269885fef1572961a';
 
   // array is specific to ethers implementation
   const msgData = abi.functions.roundResult.encode([hand]);
@@ -43,7 +43,7 @@ async function main() {
   input.setMsgData(msgData);
 
   // TODO: for Johann
-  const output = new Output(txValue, sender, 0);
+  const output = new Output(txValue, msgSender, 0);
   const condTx = Tx.spendCond(
     [input],
     [output]
