@@ -41,8 +41,8 @@ contract RoundLock {
     function roundResult(string memory userHand) public {
         // require(msg.sender == RECEIVER, "not a receiver");
         // we can skip encoding here
-        bytes memory _hand = bytes(userHand);
-        require(validHand(_hand), 'not a valid hand');
+        //bytes memory _hand = bytes(userHand);
+        //require(validHandString(userHand), 'not a valid hand');
         // calculation
         IERC20 token = IERC20(TOKEN_ADDR);
 
