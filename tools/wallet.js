@@ -28,11 +28,13 @@ async function main() {
   const value = ethers.utils.parseEther("0.03")._hex;
   const depositId = 0x0012;
   const depositTx = Tx.deposit(depositId, value, mainAddress, 0);
-  const anotherTx = Tx.
   const txRaw = depositTx.hex();
 
   const depositResponse = await provider.send('eth_sendRawTransaction', [txRaw]);
   console.log(depositResponse);
+
+  const result = await provider.send('eth_getTransactionByHash',[depositResponse]);
+  console.log(result);
 
   //console.log(ethers.utils.formatBytes32String("A1A1A1D1D1"));
   /*  let tx = {

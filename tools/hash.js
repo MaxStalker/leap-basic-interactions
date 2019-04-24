@@ -6,9 +6,6 @@ const { Tx, Outpoint, Input, Output } = require('leap-core');
 
 const provider = new ethers.providers.JsonRpcProvider(process.env['RPC_URL'] || 'https://testnet-node1.leapdao.org');
 
-const RECEIVER_PLACEHOLDER = '1111111111111111111111111111111111111111';
-const TOKEN_PLACEHOLDER = '2222222222222222222222222222222222222222';
-
 async function main() {
   let tokenAddr;
   let msgSender;
@@ -20,34 +17,23 @@ async function main() {
   let spendingCondition;
 
   try {
-    spendingCondition = require('./../build/contracts/HashLockCondition.json');
+    spendingCondition = require('./../build/contracts/HashLock.json');
   } catch (e) {
-    console.error('Please run `npm run compile:contracts` first. 😉');
+    console.error('Please run `npm run compile:contracts` first');
     return;
   }
 
-  if (process.argv.length < 4) {
-    console.log(
-      'Usage: <token address> <message sender address>\n' +
-      'Example:' +
-      '\n\t0x91c0E6801f148B77C118494ff944290999f67656 0x9D4F8216808F7dFbB919cF5e579c1894a1E197C3' +
-      '\nEnvironment Variables:' +
-      '\n\tRPC_URL'
-    );
-
-    process.exit(0);
-  }
-
-  tokenAddr = process.argv[2];
-  msgSender = process.argv[3];
+  tokenAddr = "0xD2D0F8a6ADfF16C2098101087f9548465EC96C98";
+  msgSender = "0xD8536F0dF61CD496B78e336b7Fe5e8bDFF45CD2f";
   abi = new ethers.utils.Interface(spendingCondition.abi);
   codeBuf = spendingCondition.deployedBytecode
-    .replace(RECEIVER_PLACEHOLDER, msgSender.replace('0x', '').toLowerCase())
-    .replace(TOKEN_PLACEHOLDER, tokenAddr.replace('0x', '').toLowerCase());
+    //.replace(RECEIVER_PLACEHOLDER, msgSender.replace('0x', '').toLowerCase())
+    //.replace(TOKEN_PLACEHOLDER, tokenAddr.replace('0x', '').toLowerCase());
 
   codeHash = ethUtil.ripemd160(codeBuf);
   spAddr = '0x' + codeHash.toString('hex');
-  msgData = abi.functions.fulfill.encode(['Hello, Spending Condition']);
+  const answer = ethers.utils.formatBytes32String('A1A1A1D1D1');
+  msgData = abi.functions.fulfill.encode([answer]);
 
   console.log(`Please send some tokens to ` + spAddr);
 
