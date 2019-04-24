@@ -1,4 +1,3 @@
-const ethUtil = require('ethereumjs-util');
 const ethers = require('ethers');
 const { Tx, Outpoint, Input, Output } = require('leap-core');
 const config = require('./hashConfig');
@@ -18,7 +17,7 @@ async function main() {
   }
 
   const codeBuf = spendingCondition.deployedBytecode;
-  const msgSender = "0xD8536F0dF61CD496B78e336b7Fe5e8bDFF45CD2f";
+  const msgSender = "0xBbebEa9812971a5C2B7d99a99E7d8b4d5Fda7091";
   const abi = new ethers.utils.Interface(spendingCondition.abi);
   const answer = ethers.utils.formatBytes32String('A1A1A1D1D1');
   const resolverName = "roundResult";
