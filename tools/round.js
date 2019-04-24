@@ -9,6 +9,9 @@ const provider = new ethers.providers.JsonRpcProvider(process.env['RPC_URL'] || 
 const RECEIVER_PLACEHOLDER = '1111111111111111111111111111111111111111';
 const TOKEN_PLACEHOLDER = '2222222222222222222222222222222222222222';
 
+
+console.log(ethers.utils.formatBytes32String("A1A1A1D1D1"));
+
 async function main() {
   let msgSender;
   let abi;
