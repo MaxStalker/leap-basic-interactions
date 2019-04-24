@@ -1,0 +1,10 @@
+- PLAYER requests new round
+- SERVER generates new round data
+    - new spending condition is created
+	- player hand stored in spending condition
+	- house hand stored in spending condition
+- SERVER funds spending condition
+- SERVER sends back txHash, codebuf, player hand in string format
+- PLAYER decides on order of cards
+- PLAYER submits his decision with signed transaction
+- CONDITION decides the outcome
