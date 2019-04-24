@@ -10,7 +10,7 @@ contract HashLock {
     address constant TOKEN_ADDR = 0xD2D0F8a6ADfF16C2098101087f9548465EC96C98;
     address constant RECEIVER = 0xD8536F0dF61CD496B78e336b7Fe5e8bDFF45CD2f;
 
-    function fulfill (bytes32 _answer) public {
+    function roundResult (bytes32 _answer) public {
         //bytes32 condHash = keccak256(abi.encodePacked(preImage));
         require(_answer == COND_HASH);
 

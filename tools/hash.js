@@ -23,7 +23,8 @@ async function main() {
     return;
   }
 
-  tokenAddr = "0xD2D0F8a6ADfF16C2098101087f9548465EC96C98";
+  //tokenAddr = "0xD2D0F8a6ADfF16C2098101087f9548465EC96C98";
+
   msgSender = "0xD8536F0dF61CD496B78e336b7Fe5e8bDFF45CD2f";
   abi = new ethers.utils.Interface(spendingCondition.abi);
   codeBuf = spendingCondition.deployedBytecode
@@ -33,7 +34,9 @@ async function main() {
   codeHash = ethUtil.ripemd160(codeBuf);
   spAddr = '0x' + codeHash.toString('hex');
   const answer = ethers.utils.formatBytes32String('A1A1A1D1D1');
-  msgData = abi.functions.fulfill.encode([answer]);
+
+  const resolverName = "roundResult";
+  msgData = abi.functions[resolverName].encode([answer]);
 
   console.log(`Please send some tokens to ` + spAddr);
 
@@ -78,7 +81,14 @@ async function main() {
     }
   }
 
-  let tx = await provider.send('eth_getTransactionByHash', [txHash]);
+  console.log('Code Buffer');
+  console.log(codeBuf);
+  console.log(typeof codeBuf);
+
+  console.log('Transaction hash');
+  console.log(txHash)
+  console.log(typeof txHash);
+/*  let tx = await provider.send('eth_getTransactionByHash', [txHash]);
   let txIndex = tx.transactionIndex;
   let txValue = tx.value;
 
@@ -103,7 +113,7 @@ async function main() {
 
   const txRaw = condTx.hex();
   const res = await provider.send('eth_sendRawTransaction', [txRaw]);
-  console.log('transaction hash:', res);
+  console.log('transaction hash:', res);*/
 }
 
 function onException (e) {
